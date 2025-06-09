@@ -1,8 +1,6 @@
 import os
 import requests
-import json
 from dotenv import load_dotenv
-import tqdm
 
 SAVE_DIR = "posters"
 os.makedirs(SAVE_DIR, exist_ok=True)
@@ -18,7 +16,7 @@ def get_movies_by_year(year, page=1):
     res = requests.get(url, params=params)
     return res.json()
 
-def download_poster(poster_path, movie_id):
+def download_poster(movie_id, poster_path):
     if not poster_path:
         return None
     url = f"https://image.tmdb.org/t/p/w500{poster_path}"
@@ -27,12 +25,3 @@ def download_poster(poster_path, movie_id):
     with open(os.path.join(SAVE_DIR, filename), "wb") as f:
         f.write(img_data)
     return filename
-    
-try:
-	movies = get_movies_by_year(2023)
-	holdovers = movies['results'][3]
-	print(holdovers)
-	download_poster(holdovers.get('poster_path'), holdovers.get('id'))
- 
-except Exception as e:
-	print(f"Error: {e}")
