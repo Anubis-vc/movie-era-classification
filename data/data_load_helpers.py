@@ -1,15 +1,17 @@
 import os
 import requests
-from dotenv import load_dotenv
+from dotenv import load_dotenv 
 
 SAVE_DIR = "posters"
 os.makedirs(SAVE_DIR, exist_ok=True)
 load_dotenv()
 
+# TODO: RESPECT 429 CODE
 def get_movies_by_year(year, page=1):
     url = f"https://api.themoviedb.org/3/discover/movie"
     params = {
         "api_key": os.getenv("TMDB_API_KEY"),
+        "sort_by": "revenue.desc",
         "primary_release_year": year,
         "page": page,
     }
