@@ -1,13 +1,13 @@
 import os
 import requests
+import time
 from dotenv import load_dotenv 
 
 SAVE_DIR = "posters"
 os.makedirs(SAVE_DIR, exist_ok=True)
 load_dotenv()
 
-# TODO: RESPECT 429 CODE
-def get_movies_by_year(year, page=1):
+def get_movies_by_year(year, page=1, max_attempts=5):
     url = f"https://api.themoviedb.org/3/discover/movie"
     params = {
         "api_key": os.getenv("TMDB_API_KEY"),
@@ -15,8 +15,18 @@ def get_movies_by_year(year, page=1):
         "primary_release_year": year,
         "page": page,
     }
-    res = requests.get(url, params=params)
-    return res.json()
+    
+    for _ in range(max_attempts):
+        res = requests.get(url, params=params)
+        if res.status_code == 200:
+            return res.json()
+        elif res.status_code == 429:
+            retry_after = int(res.headers.get("Retry-After", 5))
+            print(f"Returned 429, retrying after {retry_after} seconds")
+            time.sleep(retry_after)
+        else:
+            print(f"Request failed: {res.status_code}: {res.text}")
+    return {}
 
 def download_poster(movie_id, poster_path):
     if not poster_path:
