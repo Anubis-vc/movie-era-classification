@@ -7,6 +7,17 @@ SAVE_DIR = "posters"
 os.makedirs(SAVE_DIR, exist_ok=True)
 load_dotenv()
 
+'''
+Queries TMDB API to retrieve movie data by year based on revenue. Retries 5 times
+by default and respects 429 status codes for rate limiting
+
+Args:
+    - year(int): year for movies
+    - page(int): desired page number from data
+
+Return:
+    - JSON response from TMDP API (read docs for structure)
+'''
 def get_movies_by_year(year, page=1, max_attempts=5):
     url = f"https://api.themoviedb.org/3/discover/movie"
     params = {
@@ -28,12 +39,27 @@ def get_movies_by_year(year, page=1, max_attempts=5):
             print(f"Request failed: {res.status_code}: {res.text}")
     return {}
 
+'''
+Takes path to a TMDB movie poster jpg, grabs the mid-sized version (w500) for space, 
+creates a filename based on the tmdb id. Saves to data directory and returns filename
+if download was successful.
+
+Args:
+    - movie_id (string): TMDB movie ID
+    - poster_path (string): link to the poster hosted on TMDB
+Returns:
+    - filename (string): name of downloaded image file
+'''
 def download_poster(movie_id, poster_path):
     if not poster_path:
         return None
     url = f"https://image.tmdb.org/t/p/w500{poster_path}"
-    img_data = requests.get(url).content
-    filename = f"{movie_id}.jpg"
-    with open(os.path.join(SAVE_DIR, filename), "wb") as f:
-        f.write(img_data)
-    return filename
+    try:
+        img_data = requests.get(url).content
+        filename = f"{movie_id}.jpg"
+        with open(os.path.join(SAVE_DIR, filename), "wb") as f:
+            f.write(img_data)
+        return filename
+    except Exception as e:
+        print(f"Download failed, skipping: {e}")
+        return None
