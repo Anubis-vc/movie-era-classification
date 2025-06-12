@@ -63,3 +63,40 @@ def download_poster(movie_id, poster_path):
     except Exception as e:
         print(f"Download failed, skipping: {e}")
         return None
+
+'''
+Perfroms processing for all the pages for a given year
+
+Args:
+    - year (int): release year of movie
+Returns:
+    - year_metadata (List[Dict]): a list of dictionaries that contains the filename of the downloaded image, 
+        the title of the movie, and the year it was released
+'''
+def process_year(year: int):
+    year_metadata = []
+    for page in range(1, 4):
+        try:
+            movies = get_movies_by_year(year, page)
+            
+            # extract results array from json response
+            for movie in movies.get("results", []):
+                
+                # extract id and poster for each movie for downloading
+                id = movie.get('id')
+                poster_path = movie.get('poster_path', '')
+                filename = download_poster(id, poster_path)
+                
+                # adding title for fun and for possible debugging
+                title = movie.get('title', '')
+                
+                # if successful download, add metadata as dictionary
+                if filename:
+                    year_metadata.append({
+                        "filename": filename,
+                        "title": title,
+                        "release_year": year
+                    })
+        except Exception as e:
+            print(f"error at {year}, page {page}, movie{title}")
+    return year_metadata
