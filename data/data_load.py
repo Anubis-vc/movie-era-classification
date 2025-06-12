@@ -6,7 +6,7 @@ import csv
 metadata = []
 
 # grab the 60 top grossing movies from each year to add to dataset
-for year in tqdm(range(2023, datetime.datetime.now().year + 1)):
+for year in tqdm(range(1930, datetime.datetime.now().year + 1)):
     for page in range(1, 4):
         try:
             movies = get_movies_by_year(year, page)
