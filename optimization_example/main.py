@@ -5,11 +5,11 @@ import os
 non_threaded_time = run_non_threaded()
 
 try:
-    folder_path = "/Users/anubis/Desktop/Personal_Projects/movie-decade-classification/optimization_example/posters"
+    folder_path = "folderpath/poster"
     for item in os.listdir(folder_path):
         path = os.path.join(folder_path, item)
         os.remove(path)
-    os.remove("/Users/anubis/Desktop/Personal_Projects/movie-decade-classification/optimization_example/metadata.csv")
+    os.remove("folderpath/metadata.csv")
 except FileNotFoundError:
     print("file not found")
 except Exception as e:
