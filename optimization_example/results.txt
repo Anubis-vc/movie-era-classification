@@ -1,0 +1,3 @@
+Non threaded runtime: 32.77404999732971 seconds
+Threaded runtime: 7.350620746612549 seconds
+Improvement: 77.57182665184362%
