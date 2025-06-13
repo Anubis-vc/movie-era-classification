@@ -1,39 +1,40 @@
 from tqdm import tqdm
 import datetime
-from data_load_helpers import get_movies_by_year, download_poster
+import time
+from data_load_helpers import *
 import csv
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
+# timing runtime
+start_time = time.time()
+
+# metadata to store movie info, years to iterate by year to get even spread, and setting number of threads
 metadata = []
+years = range(2020, datetime.datetime.now().year + 1)
+workers = 10
 
-# grab the 60 top grossing movies from each year to add to dataset
-for year in tqdm(range(1939, datetime.datetime.now().year + 1)):
-    for page in range(1, 4):
-        try:
-            movies = get_movies_by_year(year, page)
+# use thread manager to control spawn of max_workers number of threads
+with ThreadPoolExecutor(max_workers=workers) as executor:
+        # submit tasks to thread manager and allow for processing
+        futures = [executor.submit(process_year, year) for year in years]
+        
+        # as tasks complete, collect its metadata result
+        # the process_year fxn already downloads the image 
+        for future in tqdm(as_completed(futures), total=len(futures)):
+            try:
+                year_data = future.result()
+                # add year's metadata to overall metadata
+                metadata.extend(year_data)
+            except Exception as e:
+                print(f"Year failed, {e}")
             
-            # extract results array from json response
-            for movie in movies.get("results", []):
-                
-                # extract id and poster for each movie for downloading
-                id = movie.get('id')
-                poster_path = movie.get('poster_path', '')
-                filename = download_poster(id, poster_path)
-                
-                # adding title for fun and for possible debugging
-                title = movie.get('title', '')
-                
-                # if successful download, add metadata as dictionary
-                if filename:
-                    metadata.append({
-                        "filename": filename,
-                        "title": title,
-                        "release_year": year
-                    })
-        except Exception as e:
-            print(f"error at {year}, page {page}, movie{title}")
 
 # convert metadata to csv for later processing
 with open("metadata.csv", "w") as file:
     writer = csv.DictWriter(file, fieldnames=["filename" ,"title", "release_year"])
     writer.writeheader()
     writer.writerows(metadata)
+
+# print total runtime
+end_time = time.time()
+print(f"{end_time - start_time} s")
