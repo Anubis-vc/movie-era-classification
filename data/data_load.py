@@ -10,8 +10,8 @@ start_time = time.time()
 
 # metadata to store movie info, years to iterate by year to get even spread, and setting number of threads
 metadata = []
-years = range(2020, datetime.datetime.now().year + 1)
-workers = 10
+years = range(1939, datetime.datetime.now().year + 1)
+workers = 20
 
 # use thread manager to control spawn of max_workers number of threads
 with ThreadPoolExecutor(max_workers=workers) as executor:

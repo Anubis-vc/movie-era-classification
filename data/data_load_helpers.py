@@ -98,5 +98,5 @@ def process_year(year: int):
                         "release_year": year
                     })
         except Exception as e:
-            print(f"error at {year}, page {page}, movie{title}")
+            print(f"error at {year}, page {page}, movie{title}, {e}")
     return year_metadata
