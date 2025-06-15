@@ -9,9 +9,38 @@ look like? And more importantly, can we find a marked difference in the posters 
 Special thank to The Movie Database&copy; for letting me scrape their website for all this movie data totally for free. 
 
 ## Table of Contents
-* [Tools](#Tools)
+* [Film Eras](#eras)
+* [Tools](#tools)
 * [Installation](#Installation)
+* [Optimization](#optimization)
 * [Contact](#Contact)
+
+## Eras
+Any division of film eras is arbitrary, but I am going to try to take a hybrid approach, weaving in historical content based on pivotal films, emerging technologies, industry shifts, and cultural changes. Another thing I will try to do is conform a little bit more to my data. Aside from the most recent era, I am going to try to keep a roughly even split between numberes of movies for each era, so the model does not skew towards high density eras to reduce cost.
+
+Because of the nature of filmmaking, movies will exhibit characteristics of a preceeding era or pioneer features of new eras, but I believe these subdivisions adequately capture shifts. While no transition is a hard cutoff, certain movies and events offer clear signals of change. So here's how cinema unfolds across the decades:
+
+<ol>
+
+<li>
+<b>Classical Hollywood and the Golden Era (1939 - 1954)</b>
+<br/><br/>
+The studios defined Hollywood's first real golden age, and they had complete control over all aspects of the process incluing distribution and stars. Beginning in 1939 with <i>The Wizard of Oz</i> and <i>Gone With the Wind</i>, the era progressed to include patrotic films and escapism along with melodrama in the post-war years. Popular directors included Billy Wilder and John Ford, and the era gave rise to legends like Humphrey Bogart, Ingrid Bergman, Jimmy Stewart, and Grace Kelly. Shamelessly, it also had a few of my all-time favorite movies Casablanca, Double Indemnity, and It's a Wonderful Life. 
+
+The Paramount Decree in 1948 marks a shift and the beginning of the end of this era when the US Government dismantled the studio monopolies and gave rise to more personal, psychological cinema like *On The Waterfront (1954)* and *Rear Window (1954)*.
+</li>
+
+<li>
+<b>Pre New Hollywood Transition (1955 - 1966)</b>
+<br/><br/>
+Without the studio system and TV beginning to cut in to box office dominance, Hollywood decided to bet on what made cinema unique: color, huge screens, and spectacle. Epics like <i>Ben Hur (1959)</i> define this idea. However, a more drastic shift was laying root under the surface of this circus with European cinema gaining prevalence and even American directors like Hitchcock experimenting further with form and content. Hitchcock's <i>Pyscho (1960)</i> and Kubrick's <i>Dr.Strangelove</i> are nothing like the classical era that came before.
+
+Acting styles also shifted, and actors like Marlon Brando and James Dean popularized a more realistic form of acting made possible by the advances in microphone technology. Though it was a transition period, the foundation began to crack, and this era plants the seeds for arguably the most artistically fertile era of cinema in histrory.
+</li>
+
+</ol>
+
+I love film and care about it deeply, but I want to emphasize that I am by no means an expert in film history. These are simply the subdivisions based on research by some guy who happened to minor in film in college. I'm always happy to discuss movies and even these subdivisions, so feel free to reach out and we can always discuss.
 
 ## Tools
 * [![Python][python-shield]][python-url]
