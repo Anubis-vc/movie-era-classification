@@ -111,6 +111,14 @@ the use case, it turns out implementing threading is both simpler and will likel
 For reference, I have attached small demos of the **threaded vs non-threaded implementations** in the example directory with time output
 so you can see the difference. It's more than a 75% improvement!
 
+<br/>
+<u>Vectorization</u>
+<br /><br />
+There's not much new to be said here, but you may notice throughout the notebook I have taken the
+vectorization route where a for loop would do because of the limited size of my dataset. I acknowledge
+this, but I also want to mantain best practices wherever possible, so I have gone ahead with these
+vectorized implementations.
+
 
 ## Contact
 
