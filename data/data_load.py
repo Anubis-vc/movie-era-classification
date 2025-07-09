@@ -20,7 +20,7 @@ with ThreadPoolExecutor(max_workers=workers) as executor:
         
         # as tasks complete, collect its metadata result
         # the process_year fxn already downloads the image 
-        for future in tqdm(as_completed(futures), total=len(futures)):
+        for future in tqdm(as_completed(futures), total=len(years)):
             try:
                 year_data = future.result()
                 # add year's metadata to overall metadata
@@ -31,7 +31,7 @@ with ThreadPoolExecutor(max_workers=workers) as executor:
 
 # convert metadata to csv for later processing
 with open("metadata.csv", "w") as file:
-    writer = csv.DictWriter(file, fieldnames=["filename" ,"title", "release_year"])
+    writer = csv.DictWriter(file, fieldnames=["filename" ,"title", "release_year", "genres"])
     writer.writeheader()
     writer.writerows(metadata)
 

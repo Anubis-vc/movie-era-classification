@@ -75,7 +75,7 @@ Returns:
 '''
 def process_year(year: int):
     year_metadata = []
-    for page in range(1, 4):
+    for page in range(1, 5): # getting about 80 posters per year
         try:
             movies = get_movies_by_year(year, page)
             
@@ -87,15 +87,17 @@ def process_year(year: int):
                 poster_path = movie.get('poster_path', '')
                 filename = download_poster(id, poster_path)
                 
-                # adding title for fun and for possible debugging
+                # adding title for fun and for possible debugging and genres
                 title = movie.get('title', '')
+                genres = movie.get('genre_ids', [])
                 
                 # if successful download, add metadata as dictionary
                 if filename:
                     year_metadata.append({
                         "filename": filename,
                         "title": title,
-                        "release_year": year
+                        "release_year": year,
+                        "genres": genres
                     })
         except Exception as e:
             print(f"error at {year}, page {page}, movie{title}, {e}")
