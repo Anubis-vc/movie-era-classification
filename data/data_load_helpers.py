@@ -53,7 +53,7 @@ Returns:
 def download_poster(movie_id, poster_path):
     if not poster_path:
         return None
-    url = f"https://image.tmdb.org/t/p/w500{poster_path}"
+    url = f"https://image.tmdb.org/t/p/w154{poster_path}"
     try:
         img_data = requests.get(url).content
         filename = f"{movie_id}.jpg"
