@@ -111,17 +111,6 @@ the use case, it turns out implementing threading is both simpler and will likel
 For reference, I have attached small demos of the **threaded vs non-threaded implementations** in the example directory with time output
 so you can see the difference. It's more than a 75% improvement!
 
-<br/>
-<u>Vectorization</u>
-<br /><br />
-There's not much new to be said here, but you may notice throughout the notebook I have taken the
-vectorization route where a for loop would do because of the limited size of my dataset. I acknowledge
-this, but I also want to mantain best practices wherever possible, so I have gone ahead with these
-vectorized implementations.
-
-
-## Contact
-
 [python-shield]: https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54
 [python-url]: https://docs.python.org/3/
 [pytorch-shield]: https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white
